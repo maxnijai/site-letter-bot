@@ -24,7 +24,16 @@ class GoogleClients:
 
 
 def build_clients(service_account_json: str, sheet_id: str) -> GoogleClients:
-    creds = Credentials.from_service_account_file(service_account_json, scopes=SCOPES)
+    service_account_json = (service_account_json or "").strip()
+    if not service_account_json:
+        raise RuntimeError("Missing google service account json")
+
+    try:
+        creds_dict = json.loads(service_account_json)
+    except json.JSONDecodeError as e:
+        raise RuntimeError("google_credentials_json is not valid JSON") from e
+
+    creds = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
     gc = gspread.authorize(creds)
     spreadsheet = gc.open_by_key(sheet_id)
     drive = build("drive", "v3", credentials=creds)
@@ -45,12 +54,15 @@ class SheetRepository:
         records = self.requests_log.get_all_records()
         headers = self.requests_log.row_values(1)
         target_row_index = None
+
         for idx, row in enumerate(records, start=2):
-            if row.get("request_id") == request_id:
+            if str(row.get("request_id", "")) == str(request_id):
                 target_row_index = idx
                 break
+
         if not target_row_index:
             raise ValueError(f"request_id not found: {request_id}")
+
         for key, value in updates.items():
             if key not in headers:
                 continue
