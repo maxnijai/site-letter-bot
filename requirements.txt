@@ -1,0 +1,11 @@
+python-telegram-bot==21.10
+python-dotenv==1.0.1
+gspread==6.1.2
+google-auth==2.35.0
+google-api-python-client==2.149.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.1
+docxtpl==0.19.0
+python-docx==1.1.2
+Babel==2.16.0
+pytz==2024.2
