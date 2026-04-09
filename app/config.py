@@ -30,10 +30,10 @@ def _parse_admin_ids(raw: str | None) -> tuple[int, ...]:
 
 
 settings = Settings(
-    telegram_bot_token=os.getenv("TELEGRAM_BOT_TOKEN", ""),
+    telegram_bot_token=os.getenv("8585016063:AAGLUjyaDkttMNR5XXO6qetv6G4MBoPTiIc", ""),
     google_service_account_json=os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "service_account.json"),
-    google_sheet_id=os.getenv("GOOGLE_SHEET_ID", ""),
-    google_drive_output_folder_id=os.getenv("GOOGLE_DRIVE_OUTPUT_FOLDER_ID", ""),
+    google_sheet_id=os.getenv("1CB1hjyfyQy2TluYo_3h0uD4uEEIA7sfQaUqzUBy3Gho", ""),
+    google_drive_output_folder_id=os.getenv("1PbykX1Ya2FLURmLxXDBvB5ooLjQxFZTB", ""),
     template_docx_path=os.getenv("TEMPLATE_DOCX_PATH", "templates/site_letter_template.docx"),
     timezone=os.getenv("TIMEZONE", "Asia/Bangkok"),
     admin_telegram_ids=_parse_admin_ids(os.getenv("ADMIN_TELEGRAM_IDS")),
