@@ -37,6 +37,7 @@ def build_clients(service_account_json: str, sheet_id: str) -> GoogleClients:
     gc = gspread.authorize(creds)
     spreadsheet = gc.open_by_key(sheet_id)
     drive = build("drive", "v3", credentials=creds)
+
     return GoogleClients(gc=gc, spreadsheet=spreadsheet, drive=drive)
 
 
