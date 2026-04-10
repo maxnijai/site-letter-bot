@@ -21,6 +21,7 @@ class Settings:
 def _parse_admin_ids(raw: str | None) -> tuple[int, ...]:
     if not raw:
         return ()
+
     values = []
     for item in raw.split(","):
         item = item.strip()
@@ -42,14 +43,15 @@ settings = Settings(
 
 def validate_settings() -> None:
     missing = []
-    for key in [
-        "telegram_bot_token",
-        "google_service_account_json",
-        "google_sheet_id",
-        "google_drive_output_folder_id",
-        "template_docx_path",
-    ]:
-        if not getattr(settings, key):
-            missing.append(key)
+
+    if not settings.telegram_bot_token:
+        missing.append("telegram_bot_token")
+    if not settings.google_service_account_json:
+        missing.append("google_credentials_json")
+    if not settings.google_sheet_id:
+        missing.append("google_sheet_id")
+    if not settings.google_drive_output_folder_id:
+        missing.append("google_drive_output_folder_id")
+
     if missing:
         raise RuntimeError(f"Missing required settings: {', '.join(missing)}")
